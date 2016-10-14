@@ -12,6 +12,7 @@ use Zend\Diactoros\Response;
  *
  * @package Jkirkby91\LumenPSR7Cors\Http\Middleware
  * @author James Kirkby <Jkirkby91@gmail.com>
+ * @SEE https://www.html5rocks.com/static/images/cors_server_flowchart.png
  */
 class Cors
 {
@@ -21,10 +22,10 @@ class Cors
     protected $settings = [
         'maxAge'            => 0,
         'origin'            => '*',
-        'allowMethods'      => '*',
         'exposeHeaders'     => '*',
-        'allowedHeaders'    => '*'
-        ];
+        'allowedHeaders'    => '*',
+        'allowedMethods'    => '*'
+    ];
 
     /**
      * @param ServerRequestInterface $request
@@ -34,7 +35,6 @@ class Cors
     {
         $origin = $this->settings['origin'];
         if (is_callable($origin)) {
-            // Call origin callback with request origin
             $origin = call_user_func($origin,$response->withAddedHeader('Origin',$origin));
         }
         $response->headers->set('Access-Control-Allow-Origin', $origin);
@@ -104,11 +104,10 @@ class Cors
                 $allowedHeaders = implode(", ", $allowedHeaders);
             }
         }
-        else {  // Otherwise, use request headers
+        else {
             $allowedHeaders = $request->hasHeader("Access-Control-Request-Headers");
         }
-
-        if (isset($allowHeaders)) {
+        if (isset($allowedHeaders)) {
             $response->headers->set('Access-Control-Allow-Headers', $allowedHeaders);
         }
     }
@@ -118,10 +117,7 @@ class Cors
      * @param ResponseInterface $response
      */
     protected function setCorsHeaders(ServerRequestInterface $request,$response)
-      {
-
-        // http://www.html5rocks.com/static/images/cors_server_flowchart.png
-        // Pre-flight
+    {
         if ($request->getMethod('OPTIONS')) {
             $this->setOrigin($request, $response);
             $this->setMaxAge($request, $response);
@@ -143,10 +139,12 @@ class Cors
      */
     public function handle(ServerRequestInterface $request, Closure $next)
     {
-
+        //handle preflight request
         if ('OPTIONS' == $request->getMethod()) {
             $response =  new \Illuminate\Http\Response('',"204");
-            $this->setOrigin($request, $response);
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+            $response->headers->set('Access-Control-Allow-Methods', '*');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
         else {
