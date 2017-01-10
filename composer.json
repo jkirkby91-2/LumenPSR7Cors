@@ -1,5 +1,5 @@
 {
-    "name": "Jkirkby91/Lumenpsr7cors",
+    "name": "Jkirkby91/lumenpsr7cors",
     "autoload": {
         "psr-4": {
             "Jkirkby91\\LumenPSR7Cors\\": "src/"
