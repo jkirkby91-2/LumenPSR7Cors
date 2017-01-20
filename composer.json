@@ -5,17 +5,16 @@
             "Jkirkby91\\LumenPSR7Cors\\": "src/"
         }
     },
+    "require": {
+        "zendframework/zend-diactoros": "^1.3",
+        "psr/http-message": "^1.0"
+    },
     "require-dev": {
-        "phpunit/phpunit": "4.*",
-        "jkirkby91/IlluminateRequestPSR7Adapter": "dev-master"
+        "phpunit/phpunit": "4.*"
     },
     "autoload-dev": {
         "psr-4": {
             "Jkirkby91\\LumenPSR7Cors\\Tests\\": "tests/"
         }
-    },
-    "require": {
-        "zendframework/zend-diactoros": "^1.3",
-        "psr/http-message": "^1.0"
     }
 }
