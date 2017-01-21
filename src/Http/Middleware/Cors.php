@@ -141,6 +141,7 @@ class Cors
     {
         //handle preflight request
         if ('OPTIONS' == $request->getMethod()) {
+            //@TODO make a PSR7 response
             $response =  new \Illuminate\Http\Response('',"204");
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
             $response->headers->set('Access-Control-Allow-Methods', '*');
@@ -151,6 +152,6 @@ class Cors
             $response = $next($request);
         }
         $this->setCorsHeaders($request, $response);
-        return $response;
+        return $next($request);
     }
 }

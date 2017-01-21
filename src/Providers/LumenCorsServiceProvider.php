@@ -23,15 +23,25 @@ class LumenCorsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            'Psr\Http\Message\ServerRequestInterface',
-            'Zend\Diactoros\ServerRequest'
-        );
+        $this->registerConfigs();
+        $this->registerMiddlewares();
+    }
 
-        $this->app->bind(
-            'Psr\Http\Message\ResponseInterface',
-            'Zend\Diactoros\Response'
-        );
 
+    /**
+     * Register configs for this component and merge and vendor configs
+     */
+    public function registerConfigs()
+    {
+        //@TODO implement
+//        $this->app->configure('cors');
+    }
+
+        /**
+     * Register any component middlewares
+     */
+    public function registerMiddlewares()
+    {
+        $this->app->middleware(\Jkirkby91\LumenPSR7Cors\Http\Middleware\Cors::class);
     }
 }
