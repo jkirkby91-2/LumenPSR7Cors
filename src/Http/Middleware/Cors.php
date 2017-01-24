@@ -152,6 +152,6 @@ class Cors
             $response = $next($request);
         }
         $this->setCorsHeaders($request, $response);
-        return $next($request);
+        return $response;
     }
 }
