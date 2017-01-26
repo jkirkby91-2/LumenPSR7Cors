@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 
 /**
- * Class LumenCors
+ * Class Cors
  *
  * @package Jkirkby91\LumenPSR7Cors\Http\Middleware
  * @author James Kirkby <Jkirkby91@gmail.com>
