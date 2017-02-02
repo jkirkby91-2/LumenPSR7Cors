@@ -33,8 +33,7 @@ class LumenCorsServiceProvider extends ServiceProvider
      */
     public function registerConfigs()
     {
-        //@TODO implement
-//        $this->app->configure('cors');
+       $this->app->configure('cors');
     }
 
         /**

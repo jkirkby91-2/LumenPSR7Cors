@@ -141,11 +141,13 @@ class Cors
     {
         //handle preflight request
         if ('OPTIONS' == $request->getMethod()) {
-            //@TODO make a PSR7 response
+            $allowedHeaders = implode(",",config('cors.allowedHeaders'));
+            // return $allowedHeaders;
             $response =  new \Illuminate\Http\Response('',"204");
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+            $response->headers->set('Access-Control-Allow-Headers', $allowedHeaders);
             $response->headers->set('Access-Control-Allow-Methods', '*');
             $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Origin', '*'); 
             return $response;
         }
         else {
