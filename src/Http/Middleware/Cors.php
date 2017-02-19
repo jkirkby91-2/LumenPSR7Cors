@@ -24,7 +24,7 @@ class Cors
         'origin'            => '*',
         'exposeHeaders'     => '*',
         'allowedHeaders'    => '*',
-        'allowedMethods'    => '*'
+        'allowedMethods'    => ['GET','POST','PUT','DELETE']
     ];
 
     /**
@@ -86,7 +86,7 @@ class Cors
         if (isset($this->settings['allowMethods'])) {
             $allowMethods = $this->settings['allowMethods'];
             if (is_array($allowMethods)) {
-                $allowMethods = implode(", ", $allowMethods);
+                $allowMethods = implode(",", $allowMethods);
             }
             $response->headers->set('Access-Control-Allow-Methods', $allowMethods);
         }
@@ -101,7 +101,7 @@ class Cors
         if (isset($this->settings['allowedHeaders'])) {
             $allowedHeaders = $this->settings['allowedHeaders'];
             if (is_array($allowedHeaders)) {
-                $allowedHeaders = implode(", ", $allowedHeaders);
+                $allowedHeaders = implode(",", $allowedHeaders);
             }
         }
         else {
@@ -145,7 +145,7 @@ class Cors
             // return $allowedHeaders;
             $response =  new \Illuminate\Http\Response('',"204");
             $response->headers->set('Access-Control-Allow-Headers', $allowedHeaders);
-            $response->headers->set('Access-Control-Allow-Methods', '*');
+            $response->headers->set('Access-Control-Allow-Methods', ['GET','POST','PUT','DELETE']);
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Origin', '*'); 
             return $response;
