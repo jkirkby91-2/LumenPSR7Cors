@@ -124,8 +124,7 @@ class Cors
             $this->setAllowCredentials($request, $response);
             $this->setAllowMethods($request, $response);
             $this->setAllowHeaders($request, $response);
-        }
-        else {
+        } else {
             $this->setOrigin($request, $response);
             $this->setExposeHeaders($request, $response);
             $this->setAllowCredentials($request, $response);
@@ -142,15 +141,13 @@ class Cors
         //handle preflight request
         if ('OPTIONS' == $request->getMethod()) {
             $allowedHeaders = implode(",",config('cors.allowedHeaders'));
-            // return $allowedHeaders;
             $response =  new \Illuminate\Http\Response('',"204");
             $response->headers->set('Access-Control-Allow-Headers', $allowedHeaders);
             $response->headers->set('Access-Control-Allow-Methods', ['GET','POST','PUT','DELETE']);
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Origin', '*'); 
             return $response;
-        }
-        else {
+        } else {
             $response = $next($request);
         }
         $this->setCorsHeaders($request, $response);
