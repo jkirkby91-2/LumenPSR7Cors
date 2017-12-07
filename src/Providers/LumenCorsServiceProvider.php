@@ -1,46 +1,59 @@
 <?php
+	declare(strict_types=1);
 
-namespace Jkirkby91\LumenPSR7Cors\Providers;
+	namespace Jkirkby91\LumenPSR7Cors\Providers {
 
-use Zend\Diactoros;
-use Psr\Http\Message\ResponseInterface;
-use Illuminate\Support\ServiceProvider;
-use Psr\Http\Message\ServerRequestInterface;
+		use Jkirkby91\{
+			LumenPSR7Cors\Http\Middleware\Cors
+		};
 
-/**
- * Class LumenCorsServiceProvider
- *
- * @package Jkirkby91\LumenRestServerComponent\Providers
- * @author James Kirkby <jkirkby91@gmail.com>
- */
-class LumenCorsServiceProvider extends ServiceProvider
-{
+		use Zend\{
+			Diactoros
+		};
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerConfigs();
-        $this->registerMiddlewares();
-    }
+		use Psr\{
+			Http\Message\ResponseInterface, Http\Message\ServerRequestInterface
+		};
+
+		use Illuminate\{
+			Support\ServiceProvider
+		};
+
+		/**
+		 * Class LumenCorsServiceProvider
+		 *
+		 * @package Jkirkby91\LumenPSR7Cors\Providers
+		 * @author  James Kirkby <jkirkby@protonmail.ch>
+		 */
+		class LumenCorsServiceProvider extends ServiceProvider
+		{
+
+			/**
+			 * Register the application services.
+			 *
+			 * @return void
+			 */
+			public function register()
+			{
+				$this->registerConfigs();
+				$this->registerMiddlewares();
+			}
 
 
-    /**
-     * Register configs for this component and merge and vendor configs
-     */
-    public function registerConfigs()
-    {
-       $this->app->configure('cors');
-    }
+			/**
+			 * Register configs for this component and merge and vendor configs
+			 */
+			public function registerConfigs()
+			{
+				$this->app->configure('cors');
+			}
 
-        /**
-     * Register any component middlewares
-     */
-    public function registerMiddlewares()
-    {
-        $this->app->middleware(\Jkirkby91\LumenPSR7Cors\Http\Middleware\Cors::class);
-    }
-}
+			/**
+			 * Register any component middlewares
+			 */
+			public function registerMiddlewares()
+			{
+				$this->app->middleware(Cors::class);
+			}
+		}
+	}

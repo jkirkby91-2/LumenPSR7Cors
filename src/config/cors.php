@@ -1,5 +1,7 @@
 <?php
-return [
+	declare(strict_types=1);
+
+	return [
 
     'supportsCredentials' => false,
     'allowedOrigins' => ['*'],
@@ -13,5 +15,4 @@ return [
         'field',
         'X-Socket-ID'
     ],
-            
 ];
